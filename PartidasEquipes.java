@@ -13,12 +13,15 @@ public class PartidasEquipes {
     private int golseq1;
     private int golseq2;
     private String resultado;
+    private int ptsEQ1;
+    private int ptsEQ2;
    
 
     
 
     public PartidasEquipes() {
         this.idpartida = UUID.randomUUID().toString();
+       
         
     }
 
@@ -26,38 +29,16 @@ public class PartidasEquipes {
         return data;
     }
 
-    public void setData(String data) {
-        this.data = data;
+
+
+    public void setEq1(Equipes eq1) {
+        this.eq1 = eq1.getNomeequi();
     }
 
-    
-    public void editEquipe(){
-        Object[] e = equipes.toArray();
-        Equipes eq = (Equipes)JOptionPane.showInputDialog(null, "qual a equipes que deseja editar ?", "Equipes", JOptionPane.QUESTION_MESSAGE, null, e, e);
-        
-        String nomeeq = JOptionPane.showInputDialog(null, "Digite o nome da equipe", "Edição de Equipes");
-        String nomeins = JOptionPane.showInputDialog(null, "Digite o nome do instrutor", "Edição de Equipes");
-        
-        eq.setNomeTecnico(nomeins);
-        eq.setNomeequi(nomeeq);
-    }
-
-    public void removeEquipe(){
-        Object[] eq = equipes.toArray();
-        Equipes equi = (Equipes)JOptionPane.showInputDialog(null, "qual a equipe que deseja remover ?", "Equipes", JOptionPane.QUESTION_MESSAGE, null, eq, eq);
-        equipes.remove(equi);
+    public void setEq2(Equipes eq2) {
+        this.eq2 = eq2.getNomeequi();
     }
     
-    public void jogo(){
-        Object[] eq = equipes.toArray();
-        
-        Equipes equi1 = (Equipes)JOptionPane.showInputDialog(null, "qual as equipes voce deseja competir ?", "Equipes", JOptionPane.QUESTION_MESSAGE, null, eq, eq);
-        eq1 = equi1.getNomeequi();
-        
-        Equipes equi2 = (Equipes)JOptionPane.showInputDialog(null, "qual as equipes voce deseja competir ?", "Equipes", JOptionPane.QUESTION_MESSAGE, null, eq, eq);
-        eq2 = equi2.getNomeequi();
-                
-    }
     
     public void data(){
         String datas = JOptionPane.showInputDialog(null, "Digite a data que deseja realizar o jogo", "Data");
@@ -71,31 +52,71 @@ public class PartidasEquipes {
     
     public void golseq1(){
         golseq1++;
+       
     }  
     
     public void golseq2(){
         golseq2++;
     }
+
+    public int getGolseq1() {
+        return golseq1;
+    }
+
+    public int getGolseq2() {
+        return golseq2;
+    }
+
+    public String getEq1() {
+        return eq1;
+    }
+
+    public String getEq2() {
+        return eq2;
+    }
+    
+    
+    
     
     public void resultado(){
         if(golseq1 > golseq2){
         resultado = "equipe vencedora: " + eq1;
+        ptsEQ1 += 3;
+        }
+        else if(golseq1 == golseq2){
+            resultado = "empate";
+            ptsEQ1 += 1;
+            ptsEQ2 += 1;
         }
         else{
             resultado = "equipe vencedora: " + eq2;
+            ptsEQ2 += 3;
         }
         JOptionPane.showMessageDialog (null, resultado);
+    }
+    
+    public int ptsresultado(){
+       if(golseq1 > golseq2){
+        return ptsEQ1;
+        }
+        else if(golseq1 == golseq2){
+            return ptsEQ1 + ptsEQ2;
+        }
+        else{
+            return ptsEQ2;
+        }
     }
     
     public void cadPartida(){
         data();
         local();
     }
-    
-    public void listarEquipes(){
-       for(Equipes e : equipes){
-       JOptionPane.showMessageDialog(null, e);
+
+    @Override
+    public String toString() {
+        return "Partida: " + "equipe1=" + eq1 + ", equipe2=" + eq2;
     }
     
-}
+
+    
 }

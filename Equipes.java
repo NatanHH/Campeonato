@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 public class Equipes {
     private String nomeequi;
     private String nomeTecnico;
-    ArrayList<Jogador> jogadores;
+    ArrayList<Jogador> jogadores = new ArrayList<>();
 
     public Equipes(String nomeequi, String nomeintrutor) {
         this.nomeequi = nomeequi;
@@ -74,7 +74,7 @@ public class Equipes {
     
     public void listarJogadores(){
          for(Jogador e : jogadores){
-           JOptionPane.showMessageDialog(null, e.getNome());
+           JOptionPane.showMessageDialog(null, e, "jogadores", 1);
     }
     
     
