@@ -40,7 +40,7 @@ public class Jogador {
 
     @Override
     public String toString() {
-        return "Jogador:" + "nome= " + nome + ", posicao= " + posicao + ", numero= " + nume;
+        return "Jogador{" + "nome=" + nome + ", posicao=" + posicao + ", nume=" + nume + '}';
     }
     
     

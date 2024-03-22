@@ -8,12 +8,11 @@ public class Campeonato {
     public static ArrayList<PartidasEquipes> partidas;
 
     public static void main(String[] args) {
-        
         partidas = new ArrayList<>();
         equipes = new ArrayList<>();
         
         String[] opcoes = {"Cadastrar Equipes ", "Cadastrar Partida","Listar Equipes",
-            "Editar Equipes", "Remover Equipe","Adicionar jogador","Partidas", "Classificação",
+            "Editar Equipes", "Remover Equipe","Adicionar jogador","Partidas", "Classificação","Editar Jogador","remover jogador",
              "Sair"};
         int opselec = 0;
         do{
@@ -45,8 +44,14 @@ public class Campeonato {
            else if (opselec == 7){
                classificacao();
         }
+           else if (opselec == 8){
+               editJogador();
         }
-        while(opselec != 8);
+           else if (opselec == 9){
+               removerJogador();
+           }
+        }
+        while(opselec != 10);
 
              
     }
@@ -61,14 +66,16 @@ public class Campeonato {
 
        public static void listarEquipes(){
        for(Equipes e : equipes){
+           Object[] j = e.getJogadores().toArray();
            JOptionPane.showMessageDialog(null, e);
-           e.listarJogadores();
+           
+           JOptionPane.showMessageDialog(null, j);
        
     }
    }
     public static void editEquipe(){
        Object[] e = equipes.toArray();
-       Equipes eq = (Equipes)JOptionPane.showInputDialog(null, "qual a equipes que deseja editar ?", "Equipes", JOptionPane.QUESTION_MESSAGE, null, e, e);
+       Equipes eq = (Equipes)JOptionPane.showInputDialog(null, "qual a equipes que deseja editar ?", "Equipes", JOptionPane.QUESTION_MESSAGE, null, e, null);
        
        String nomeeq = JOptionPane.showInputDialog(null, "Digite o nome da equipe", "Edição de Equipes");
        String nomeins = JOptionPane.showInputDialog(null, "Digite o nome do instrutor", "Edição de Equipes");
@@ -78,7 +85,7 @@ public class Campeonato {
    }
     public static void removerEquipe(){
         Object[] eq = equipes.toArray();
-        Equipes equi = (Equipes)JOptionPane.showInputDialog(null, "qual a equipe que deseja remover ?", "Equipes", JOptionPane.QUESTION_MESSAGE, null, eq, eq);
+        Equipes equi = (Equipes)JOptionPane.showInputDialog(null, "qual a equipe que deseja remover ?", "Equipes", JOptionPane.QUESTION_MESSAGE, null, eq, null);
         equipes.remove(equi);
    }
    
@@ -86,23 +93,33 @@ public class Campeonato {
         Object[] eq = equipes.toArray();
         
         PartidasEquipes p1 = new PartidasEquipes();
-        p1.cadPartida();
-     
+        String datas = JOptionPane.showInputDialog(null, "Digite a data que deseja realizar o jogo", "Data");
+        p1.data(datas);
+        String estadio = JOptionPane.showInputDialog(null, "Digite o estadio que deseja realizar o jogo", "Local");
+        p1.local(estadio);
         
-        Equipes equi1 = (Equipes)JOptionPane.showInputDialog(null, "qual as equipes voce deseja competir ?", "Equipes", JOptionPane.QUESTION_MESSAGE, null, eq, eq);
+        Equipes equi1 = (Equipes)JOptionPane.showInputDialog(null, "qual as equipes voce deseja competir ?", "Equipes", JOptionPane.QUESTION_MESSAGE, null, eq, null);
         p1.setEq1(equi1);        
-        Equipes equi2 = (Equipes)JOptionPane.showInputDialog(null, "qual as equipes voce deseja competir ?", "Equipes", JOptionPane.QUESTION_MESSAGE, null, eq, eq);
+        Equipes equi2 = (Equipes)JOptionPane.showInputDialog(null, "qual as equipes voce deseja competir ?", "Equipes", JOptionPane.QUESTION_MESSAGE, null, eq, null);
         p1.setEq2(equi2);
         partidas.add(p1);
+        
+        
+        
                 
     }
     public static void criarJogador(){
         Object[] eq = equipes.toArray();
         
-        Equipes equip = (Equipes)JOptionPane.showInputDialog(null, "qual equipe deseja adicionar um jogador ?", "Equipes", JOptionPane.QUESTION_MESSAGE, null, eq, eq);
-        equip.addjogador();
+        Equipes equip = (Equipes)JOptionPane.showInputDialog(null, "qual equipe deseja adicionar um jogador ?", "Equipes", JOptionPane.QUESTION_MESSAGE, null, eq, null);
+        String nome = JOptionPane.showInputDialog(null, "Digite o nome do jogador", "Cadastro de jogadores");
+        String posicao = JOptionPane.showInputDialog(null, "Digite a posição dele", "Cadastro de jogadores");
+        int nume = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero do jogador", "cadastro de jogadores"));
+        
+        equip.addjogador(nome, posicao, nume);
         equipes.remove(equip);
         equipes.add(equip);
+        
     }
     public static void registrarPartida(){
         Object[] p = partidas.toArray();
@@ -110,7 +127,7 @@ public class Campeonato {
         String[] op = {"Gols", "Resultado", "Voltar"};
         String[] ops = {"Gol feito", "Total de gols", "Voltar"};
         String[] gol = {"Equipe 1 ", "Equipe 2"};
-        PartidasEquipes part = (PartidasEquipes)JOptionPane.showInputDialog(null, "qual Partida deseja visualizar ?", "Partidas", JOptionPane.QUESTION_MESSAGE, null, p, p);
+        PartidasEquipes part = (PartidasEquipes)JOptionPane.showInputDialog(null, "qual Partida deseja visualizar ?", "Partidas", JOptionPane.QUESTION_MESSAGE, null, p, null);
         int opsele = 0;
         do{
             opsele = JOptionPane.showOptionDialog(null, "Selecione uma opção",
@@ -145,7 +162,7 @@ public class Campeonato {
         while(opsele != 2);
     }
     public static void classificacao(){
-        //Apenas mesnagem para mostrar as classificações e licar com alguns outros metodos como ponto, criar outros metodos como: gols marcados, gols sofridos, vitorias, epates e derrotas. Possivelmente terminavel em 2 horas.
+        //Apenas mensagem para mostrar as classificações e licar com alguns outros metodos como ponto, criar outros metodos como: gols marcados, gols sofridos, vitorias, epates e derrotas. Possivelmente terminavel em 2 horas.
     }
     public static void pontos(){
         Object [] p = partidas.toArray();
@@ -157,5 +174,29 @@ public class Campeonato {
                 }
         }
         }
+    }
+    public static void editJogador(){
+        Object[] equipe = equipes.toArray();
+        Equipes equi = (Equipes)JOptionPane.showInputDialog(null, "qual a equipe que editar um jogador ?", "Equipes", JOptionPane.QUESTION_MESSAGE, null, equipe, null);
+        Object[] j = equi.getJogadores().toArray();
+
+        Jogador jo = (Jogador)JOptionPane.showInputDialog(null, "qual o jogador ?", "Jogadores", JOptionPane.QUESTION_MESSAGE, null, j, null);
+        String nome = JOptionPane.showInputDialog(null, "Digite o nome do jogador", "Edição de jogadores");
+        String posicao = JOptionPane.showInputDialog(null, "Digite a posição dele", "Edição de jogadores");
+        int nume = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero do jogador", "Edição de jogadores"));
+        jo.setNume(nume);
+        jo.setNome(nome);
+        jo.setPosicao(posicao);
+        
+    }
+    public static void removerJogador(){
+        Object[] equipe = equipes.toArray();
+        Equipes eq = (Equipes)JOptionPane.showInputDialog(null, "qual Equipe deseja remover um jogador", "Equipes",JOptionPane.QUESTION_MESSAGE, null, equipe, null);
+       if(eq != null){
+        Object[] jogadores = eq.getJogadores().toArray();
+        eq.getJogadores();
+        Jogador jogadorSelecionado = (Jogador)JOptionPane.showInputDialog(null, "escolha um jogador", "jogadores", JOptionPane.QUESTION_MESSAGE, null, jogadores, null);
+        eq.removejogador(jogadorSelecionado);
+    }
     }
 }

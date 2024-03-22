@@ -40,13 +40,12 @@ public class PartidasEquipes {
     }
     
     
-    public void data(){
-        String datas = JOptionPane.showInputDialog(null, "Digite a data que deseja realizar o jogo", "Data");
+    public void data(String datas){
+        
         data = datas;
     }
     
-    public void local(){
-        String estadio = JOptionPane.showInputDialog(null, "Digite o estadio que deseja realizar o jogo", "Local");
+    public void local(String estadio){
         local = estadio;
     }
     
@@ -74,6 +73,11 @@ public class PartidasEquipes {
     public String getEq2() {
         return eq2;
     }
+
+    public ArrayList<Equipes> getEquipes() {
+        return equipes;
+    }
+    
     
     
     
@@ -107,10 +111,7 @@ public class PartidasEquipes {
         }
     }
     
-    public void cadPartida(){
-        data();
-        local();
-    }
+
 
     @Override
     public String toString() {
