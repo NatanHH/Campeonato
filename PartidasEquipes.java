@@ -7,8 +7,8 @@ public class PartidasEquipes {
     ArrayList<Equipes> equipes = new ArrayList<>();
     private String idpartida;
     private String data;
-    private String eq1;
-    private String eq2;
+    private Equipes equipe1;
+    private Equipes equipe2;
     private String local;
     private int golseq1;
     private int golseq2;
@@ -32,11 +32,11 @@ public class PartidasEquipes {
 
 
     public void setEq1(Equipes eq1) {
-        this.eq1 = eq1.getNomeequi();
+        this.equipe1 = eq1;
     }
 
     public void setEq2(Equipes eq2) {
-        this.eq2 = eq2.getNomeequi();
+        this.equipe2 = eq2;
     }
     
     
@@ -51,11 +51,13 @@ public class PartidasEquipes {
     
     public void golseq1(){
         golseq1++;
+        equipe2.setGolsSofridos();
        
     }  
     
     public void golseq2(){
         golseq2++;
+        equipe1.setGolsSofridos();
     }
 
     public int getGolseq1() {
@@ -66,42 +68,61 @@ public class PartidasEquipes {
         return golseq2;
     }
 
-    public String getEq1() {
-        return eq1;
+    public Equipes getEq1() {
+        return equipe1;
     }
 
-    public String getEq2() {
-        return eq2;
+    public Equipes getEq2() {
+        return equipe2;
     }
+
+    public int getPtsEQ1() {
+        return ptsEQ1;
+    }
+
+    public int getPtsEQ2() {
+        return ptsEQ2;
+    }
+    
 
     public ArrayList<Equipes> getEquipes() {
         return equipes;
     }
-    
-    
-    
+
     
     
     public void resultado(){
         if(golseq1 > golseq2){
-        resultado = "equipe vencedora: " + eq1;
+        resultado = "equipe vencedora: " + equipe1 + "\n pontos: " + ptsEQ1;
         ptsEQ1 += 3;
+        equipe1.setPontos(ptsEQ1);
+        equipe1.setVitorias();
+        equipe2.setDerrotas();
+
+
         }
         else if(golseq1 == golseq2){
             resultado = "empate";
             ptsEQ1 += 1;
             ptsEQ2 += 1;
+            equipe1.setEmpates();
+            equipe2.setEmpates();
         }
         else{
-            resultado = "equipe vencedora: " + eq2;
+            resultado = "equipe vencedora: " + equipe2 + "\n pontos: " + ptsEQ2;
             ptsEQ2 += 3;
+            equipe2.setPontos(ptsEQ2);
+            equipe2.setVitorias();
+            equipe1.setDerrotas();
         }
         JOptionPane.showMessageDialog (null, resultado);
     }
     
+    
     public int ptsresultado(){
        if(golseq1 > golseq2){
         return ptsEQ1;
+        
         }
         else if(golseq1 == golseq2){
             return ptsEQ1 + ptsEQ2;
@@ -113,9 +134,10 @@ public class PartidasEquipes {
     
 
 
+
     @Override
     public String toString() {
-        return "Partida: " + "equipe1=" + eq1 + ", equipe2=" + eq2;
+        return "Partida: \n" + "equipe 1: " + equipe1 + ", equipe2=" + equipe2;
     }
     
 
